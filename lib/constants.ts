@@ -1,0 +1,198 @@
+export const COURSE_GROUPS = [
+  {
+    label: "University Institute of Engineering and Technology",
+    options: [
+      { value: "B.Tech Computer Science and Engineering", label: "B.Tech CSE - Computer Science and Engineering" },
+      { value: "B.Tech Artificial Intelligence & Machine Learning", label: "B.Tech AI & ML - Artificial Intelligence & Machine Learning" },
+      { value: "B.Tech Computer Science & Engineering (Data Science)", label: "B.Tech CSE (DS) - Computer Science & Engineering (Data Science)" },
+      { value: "B.Tech Civil Engineering", label: "B.Tech CE - Civil Engineering" },
+      { value: "B.Tech Mechanical Engineering", label: "B.Tech ME - Mechanical Engineering" },
+      { value: "B.Tech Electronics & Communication Engineering", label: "B.Tech ECE - Electronics & Communication Engineering" },
+      { value: "B.Tech Electrical Engineering", label: "B.Tech EE - Electrical Engineering" },
+      { value: "M.Tech Computer Science and Engineering", label: "M.Tech CSE - Computer Science and Engineering" },
+      { value: "M.Tech Mechanical Engineering", label: "M.Tech ME - Mechanical Engineering" },
+      { value: "M.Tech Electronics & Communication Engineering", label: "M.Tech ECE - Electronics & Communication Engineering" },
+      { value: "MCA", label: "MCA - Master of Computer Applications" },
+    ],
+  },
+  {
+    label: "University Institute of Sciences",
+    options: [
+      { value: "B.Sc (Hons.) Agriculture", label: "B.Sc (Hons.) Agriculture" },
+      { value: "B.Sc (Hons.) Microbiology", label: "B.Sc (Hons.) Microbiology" },
+      { value: "B.Sc (Hons.) Food Technology", label: "B.Sc (Hons.) Food Technology" },
+      { value: "B.Sc (Hons.) Forensic Science", label: "B.Sc (Hons.) Forensic Science" },
+      { value: "B.Sc (Hons.) Biotechnology", label: "B.Sc (Hons.) Biotechnology" },
+      { value: "B.Sc (Hons.) Chemistry", label: "B.Sc (Hons.) Chemistry" },
+      { value: "B.Sc (Hons.) Physics", label: "B.Sc (Hons.) Physics" },
+      { value: "B.Sc (Hons.) Maths", label: "B.Sc (Hons.) Maths" },
+      { value: "B.Sc (Hons.) Zoology", label: "B.Sc (Hons.) Zoology" },
+      { value: "B.Sc (Hons.) Botany", label: "B.Sc (Hons.) Botany" },
+      { value: "M.Sc Chemistry", label: "M.Sc Chemistry" },
+      { value: "M.Sc Physics", label: "M.Sc Physics" },
+      { value: "M.Sc Mathematics", label: "M.Sc Mathematics" },
+      { value: "M.Sc Microbiology", label: "M.Sc Microbiology" },
+      { value: "M.Sc Biotechnology", label: "M.Sc Biotechnology" },
+      { value: "M.Sc Botany", label: "M.Sc Botany" },
+      { value: "M.Sc Zoology", label: "M.Sc Zoology" },
+      { value: "M.Sc Food Technology", label: "M.Sc Food Technology" },
+      { value: "M.Sc Forensic Science", label: "M.Sc Forensic Science" },
+    ],
+  },
+  {
+    label: "University Institute of Management & Commerce",
+    options: [
+      { value: "BBA", label: "BBA - Bachelor of Business Administration" },
+      { value: "B.Com (Hons.)", label: "B.Com (Hons.) - Bachelor of Commerce (Hons.)" },
+      { value: "MBA", label: "MBA - Master of Business Administration" },
+    ],
+  },
+  {
+    label: "University Institute of Pharmacy",
+    options: [
+      { value: "B.Pharm", label: "B.Pharm - Bachelor of Pharmacy" },
+      { value: "D.Pharm", label: "D.Pharm - Diploma in Pharmacy" },
+    ],
+  },
+  {
+    label: "University Institute of Law",
+    options: [
+      { value: "B.A.LL.B (Hons.)", label: "B.A.LL.B (Hons.)" },
+      { value: "B.B.A.LL.B (Hons.)", label: "B.B.A.LL.B (Hons.)" },
+      { value: "LL.B (Hons.)", label: "LL.B (Hons.)" },
+    ],
+  },
+  {
+    label: "University Institute of Computer Applications",
+    options: [
+      { value: "BCA", label: "BCA - Bachelor of Computer Applications" },
+    ],
+  },
+  {
+    label: "University Institute of Media & Journalism",
+    options: [
+      { value: "BJMC", label: "BJMC - Bachelor of Journalism and Mass Communication" },
+    ],
+  },
+  {
+    label: "University Institute of Education",
+    options: [
+      { value: "B.Ed", label: "B.Ed - Bachelor of Education" },
+    ],
+  },
+  {
+    label: "University Institute of Hotel Management & Tourism",
+    options: [
+      { value: "BHMCT", label: "BHMCT - Bachelor of Hotel Management and Catering Technology" },
+      { value: "BTTM", label: "BTTM - Bachelor of Tourism & Travel Management" },
+    ],
+  },
+  {
+    label: "University Institute of Polytechnic",
+    options: [
+      { value: "Polytechnic Civil Engineering", label: "Polytechnic CE - Civil Engineering" },
+      { value: "Polytechnic Computer Science & Engineering", label: "Polytechnic CSE - Computer Science & Engineering" },
+      { value: "Polytechnic Mechanical Engineering", label: "Polytechnic ME - Mechanical Engineering" },
+      { value: "Polytechnic Electrical Engineering", label: "Polytechnic EE - Electrical Engineering" },
+      { value: "Polytechnic Electronics & Communication Engineering", label: "Polytechnic ECE - Electronics & Communication Engineering" },
+    ],
+  },
+  {
+    label: "University Institute of Ayurveda",
+    options: [
+      { value: "BAMS", label: "BAMS - Bachelor of Ayurvedic Medicine and Surgery" },
+      { value: "BUMS", label: "BUMS - Bachelor of Unani Medicine & Surgery" },
+      { value: "BYNS", label: "BYNS - Bachelor of Yogic & Naturopathy Sciences" },
+      { value: "D.Pharma (Ayurveda)", label: "D.Pharma (Ayurveda)" },
+    ],
+  },
+  {
+    label: "University Institute of Paramedical Sciences",
+    options: [
+      { value: "BPT", label: "BPT - Bachelor of Physiotherapy" },
+      { value: "BMLT", label: "BMLT - Bachelor in Medical Lab. Technology" },
+      { value: "BOPT", label: "BOPT - Bachelor of Optometry" },
+      { value: "DRIT", label: "DRIT - Diploma in Radiology & Imaging Technology" },
+      { value: "DMLT", label: "DMLT - Diploma in Medical Lab. Technology" },
+      { value: "DOT", label: "DOT - Diploma in Optometry" },
+      { value: "ANM", label: "ANM - Auxiliary Nurse Midwifery" },
+      { value: "GNM", label: "GNM - General Nursing and Midwifery" },
+      { value: "B.Sc Nursing", label: "B.Sc Nursing" },
+      { value: "M.Sc Medical (Anatomy)", label: "M.Sc Medical (Anatomy)" },
+      { value: "M.Sc Medical (Physiology)", label: "M.Sc Medical (Physiology)" },
+      { value: "M.Sc Medical (Biochemistry)", label: "M.Sc Medical (Biochemistry)" },
+    ],
+  },
+  {
+    label: "University Institute of Architecture",
+    options: [
+      { value: "B.Arch", label: "B.Arch - Bachelor of Architecture" },
+    ],
+  },
+  {
+    label: "University Institute of Design",
+    options: [
+      { value: "B.Des (Fashion Design)", label: "B.Des (Fashion Design)" },
+    ],
+  },
+  {
+    label: "University Institute of Languages",
+    options: [
+      { value: "B.A (Hons.) English", label: "B.A (Hons.) English" },
+    ],
+  },
+  {
+    label: "University Institute of Physical Education",
+    options: [
+      { value: "B.P.Ed", label: "B.P.Ed - Bachelor of Physical Education" },
+      { value: "M.P.Ed", label: "M.P.Ed - Master of Physical Education" },
+    ],
+  },
+];
+
+export const STATES = [
+  "Andhra Pradesh",
+  "Arunachal Pradesh",
+  "Assam",
+  "Bihar",
+  "Chhattisgarh",
+  "Goa",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Jammu and Kashmir",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Madhya Pradesh",
+  "Maharashtra",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Punjab",
+  "Rajasthan",
+  "Sikkim",
+  "Tamil Nadu",
+  "Telangana",
+  "Tripura",
+  "Uttar Pradesh",
+  "Uttarakhand",
+  "West Bengal",
+];
+
+export const COUNTRIES = [
+  "India",
+  "United States",
+  "United Kingdom",
+  "Canada",
+  "Australia",
+  "Germany",
+  "France",
+  "Japan",
+  "China",
+  "United Arab Emirates",
+  "Singapore",
+  "International",
+];

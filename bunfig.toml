@@ -1,0 +1,10 @@
+# Bun configuration for this Next.js project
+# https://bun.sh/docs/runtime/bunfig
+
+[install]
+# Use the lockfile for faster installs
+frozenLockfile = false
+
+[run]
+# Use Bun's runtime when running scripts
+bun = true

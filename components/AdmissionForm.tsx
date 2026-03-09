@@ -244,7 +244,7 @@ export default function AdmissionForm() {
                 <select
                   id="state"
                   {...register("state")}
-                  disabled={!selectedCountry || (selectedCountry && availableStates.length === 0)}
+                  disabled={!selectedCountry || availableStates.length === 0}
                   className={`w-full px-4 py-3 rounded-xl border ${errors.state ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-indigo-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none appearance-none cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed`}
                 >
                   <option value="">{selectedCountry && availableStates.length === 0 ? "No states available" : "Choose a state..."}</option>

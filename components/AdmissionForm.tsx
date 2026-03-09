@@ -102,7 +102,14 @@ export default function AdmissionForm() {
             <path fill="#fff" d="M41.5,-63.5C53.7,-53.4,63.5,-40.5,69.5,-25.7C75.5,-10.9,77.7,5.8,73.4,20.8C69.1,35.8,58.3,49,44.9,58.5C31.5,68,15.8,73.8,0.1,73.6C-15.5,73.5,-31,67.5,-44.6,58.1C-58.2,48.7,-69.9,35.9,-75.4,21.1C-80.9,6.3,-80.2,-10.5,-73.4,-24.8C-66.6,-39.1,-53.7,-50.9,-40.1,-60.4C-26.5,-69.9,-13.2,-77.1,1.1,-78.6C15.4,-80.1,30.8,-75.9,41.5,-63.5Z" transform="translate(200 200)" />
           </svg>
         </div>
-        <GraduationCap className="w-12 h-12 mx-auto mb-4 text-indigo-200" />
+        <div className="flex justify-center mb-5">
+          <img
+            src="/api/logo"
+            alt="Guru Nanak University Logo"
+            className="h-20 object-contain drop-shadow-lg"
+          />
+        </div>
+        <GraduationCap className="w-8 h-8 mx-auto mb-3 text-indigo-200" />
         <h2 className="text-3xl font-bold tracking-tight mb-2">Admission Enquiry</h2>
         <p className="text-indigo-100 max-w-md mx-auto">Take the first step towards your future. Fill out the form below and our team will get in touch with you.</p>
       </div>

@@ -101,7 +101,7 @@ export default function AdmissionForm() {
         <img
           src="/api/logo"
           alt="Guru Nanak University, Hyderabad"
-          className="h-16 md:h-20 w-auto object-contain"
+          className="h-24 md:h-32 w-auto object-contain"
         />
       </div>
       {/* Indigo banner — title & subtitle */}

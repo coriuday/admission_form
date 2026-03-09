@@ -25,13 +25,13 @@ export default function BackgroundAnimation() {
         }}
       />
 
-      {/* ── Large slow-drifting gradient blobs ── */}
+      {/* ── Large slow-drifting gradient blobs (Desktop Only to prevent mobile glitching) ── */}
 
       {/* Top-left: indigo-violet */}
       <motion.div
         animate={{ scale: [1, 1.25, 1], opacity: [0.45, 0.65, 0.45], x: ["0%", "8%", "0%"], y: ["0%", "6%", "0%"] }}
         transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -top-[15%] -left-[15%] w-[55%] h-[55%] rounded-full blur-[120px]"
+        className="hidden md:block absolute -top-[15%] -left-[15%] w-[55%] h-[55%] rounded-full blur-[120px]"
         style={{ background: "radial-gradient(circle, #a5b4fc 0%, #818cf8 50%, #6366f1 100%)" }}
       />
 
@@ -39,7 +39,7 @@ export default function BackgroundAnimation() {
       <motion.div
         animate={{ scale: [1, 1.3, 1], opacity: [0.4, 0.6, 0.4], x: ["0%", "-8%", "0%"], y: ["0%", "-6%", "0%"] }}
         transition={{ duration: 28, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -bottom-[15%] -right-[15%] w-[55%] h-[55%] rounded-full blur-[120px]"
+        className="hidden md:block absolute -bottom-[15%] -right-[15%] w-[55%] h-[55%] rounded-full blur-[120px]"
         style={{ background: "radial-gradient(circle, #7dd3fc 0%, #38bdf8 50%, #0ea5e9 100%)" }}
       />
 
@@ -47,7 +47,7 @@ export default function BackgroundAnimation() {
       <motion.div
         animate={{ scale: [1, 1.4, 1], opacity: [0.25, 0.45, 0.25], rotate: [0, 180, 360] }}
         transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
-        className="absolute top-[30%] left-[35%] w-[35%] h-[35%] rounded-full blur-[100px]"
+        className="hidden md:block absolute top-[30%] left-[35%] w-[35%] h-[35%] rounded-full blur-[100px]"
         style={{ background: "radial-gradient(circle, #f0abfc 0%, #e879f9 50%, #d946ef 100%)" }}
       />
 
@@ -55,7 +55,7 @@ export default function BackgroundAnimation() {
       <motion.div
         animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3], x: ["0%", "-5%", "0%"] }}
         transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -top-[10%] right-[5%] w-[35%] h-[35%] rounded-full blur-[100px]"
+        className="hidden md:block absolute -top-[10%] right-[5%] w-[35%] h-[35%] rounded-full blur-[100px]"
         style={{ background: "radial-gradient(circle, #fde68a 0%, #fbbf24 50%, #f59e0b 100%)" }}
       />
 
@@ -63,7 +63,7 @@ export default function BackgroundAnimation() {
       <motion.div
         animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.5, 0.3], y: ["0%", "-8%", "0%"] }}
         transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-[5%] left-[5%] w-[30%] h-[30%] rounded-full blur-[90px]"
+        className="hidden md:block absolute bottom-[5%] left-[5%] w-[30%] h-[30%] rounded-full blur-[90px]"
         style={{ background: "radial-gradient(circle, #6ee7b7 0%, #34d399 50%, #10b981 100%)" }}
       />
 

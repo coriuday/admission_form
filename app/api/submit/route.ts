@@ -10,7 +10,7 @@ import { google } from "googleapis";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, email, phone, course, country, state, date } = body;
+    const { name, email, phoneCode, phone, course, country, state, educationDetails, date } = body;
 
     // Validate required fields
     if (!name || !email || !phone || !course || !country || !date) {
@@ -19,6 +19,8 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
+
+    const fullPhone = `${phoneCode || ""} ${phone}`.trim();
 
     const sheetId = process.env.GOOGLE_SHEET_ID;
     const clientEmail = process.env.GOOGLE_CLIENT_EMAIL;
@@ -33,7 +35,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({
         success: true,
         message: "Submission received (Sheets not configured yet – data logged server-side).",
-        data: { name, email, phone, course, country, state, date },
+        data: { name, email, phone: fullPhone, course, country, state, educationDetails, date },
       });
     }
 
@@ -51,14 +53,14 @@ export async function POST(req: NextRequest) {
     const submittedAt = new Date().toISOString();
 
     // Append a new row to the first sheet (Sheet1)
-    // Column order: Submitted At | Name | Email | Phone | Course | Country | State | Preferred Date
+    // Column order: Submitted At | Name | Email | Phone | Course | Country | State | Preferred Date | Education Details
     await sheets.spreadsheets.values.append({
       spreadsheetId: sheetId,
-      range: "Sheet1!A:H",
+      range: "Sheet1!A:I",
       valueInputOption: "USER_ENTERED",
       requestBody: {
         values: [
-          [submittedAt, name, email, phone, course, country, state ?? "", date],
+          [submittedAt, name, email, fullPhone, course, country, state ?? "", date, educationDetails ?? ""],
         ],
       },
     });

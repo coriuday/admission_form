@@ -5,16 +5,19 @@ import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { motion } from "motion/react";
-import { CheckCircle2, ChevronRight, GraduationCap, MapPin, User, Mail, Phone, Calendar, RotateCcw, Globe } from "lucide-react";
-import { COURSE_GROUPS, STATES, COUNTRIES } from "../lib/constants";
+import { CheckCircle2, ChevronRight, GraduationCap, MapPin, User, Mail, Phone, Calendar, RotateCcw, Globe, Book } from "lucide-react";
+import { COURSE_GROUPS } from "../lib/constants";
+import { Country, State } from "country-state-city";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters.").max(50, "Name must be less than 50 characters.").regex(/^[a-zA-Z\s]*$/, "Name can only contain letters and spaces."),
   email: z.string().min(1, "Email is required.").email("Please enter a valid email address."),
-  phone: z.string().min(1, "Phone number is required.").regex(/^\d{10}$/, "Phone number must be exactly 10 digits."),
+  phoneCode: z.string().min(1),
+  phone: z.string().min(6, "Phone number is too short.").max(15, "Phone number is too long.").regex(/^\d+$/, "Phone number must contain only digits."),
   course: z.string().min(1, "Please select a course."),
   country: z.string().min(1, "Please select a country."),
   state: z.string().optional(),
+  educationDetails: z.string().optional(),
   date: z.string().min(1, "Please select a date.").refine((val) => {
     const selectedDate = new Date(val);
     const today = new Date();
@@ -22,7 +25,7 @@ const formSchema = z.object({
     return selectedDate >= today;
   }, "Date cannot be in the past."),
 }).superRefine((data, ctx) => {
-  if (data.country && data.country !== "International" && !data.state) {
+  if (data.country && !data.state && Country.getAllCountries().find(c => c.name === data.country)?.isoCode && State.getStatesOfCountry(Country.getAllCountries().find(c => c.name === data.country)?.isoCode || "").length > 0) {
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
       message: "Please select a state.",
@@ -36,6 +39,7 @@ type FormData = z.infer<typeof formSchema>;
 export default function AdmissionForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [availableStates, setAvailableStates] = useState<any[]>([]);
 
   const {
     register,
@@ -50,23 +54,32 @@ export default function AdmissionForm() {
     mode: "onTouched",
     defaultValues: {
       date: new Date().toISOString().split("T")[0],
+      phoneCode: "+91", // Default to India
     },
   });
 
-  const selectedState = useWatch({
-    control,
-    name: "state",
-  });
-
-  const selectedCountry = useWatch({
-    control,
-    name: "country",
-  });
+  const selectedCountry = useWatch({ control, name: "country" });
+  const selectedPhoneCode = useWatch({ control, name: "phoneCode" });
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
+
+  // Handle dynamic states and phone code when country changes
+  useEffect(() => {
+    if (selectedCountry) {
+      const countryObj = Country.getAllCountries().find(c => c.name === selectedCountry);
+      if (countryObj) {
+        setAvailableStates(State.getStatesOfCountry(countryObj.isoCode));
+        setValue("phoneCode", `+${countryObj.phonecode}`, { shouldValidate: true });
+        // Clear state if the new country's state list doesn't include the previously selected state
+        setValue("state", "", { shouldValidate: true });
+        clearErrors("state");
+      }
+    } else {
+      setAvailableStates([]);
+    }
+  }, [selectedCountry, setValue, clearErrors]);
 
   const onSubmit = async (data: FormData) => {
     try {
@@ -83,6 +96,7 @@ export default function AdmissionForm() {
 
       setIsSubmitted(true);
       reset();
+      setAvailableStates([]);
 
       // Reset success message after 3 seconds
       setTimeout(() => setIsSubmitted(false), 3000);
@@ -94,9 +108,11 @@ export default function AdmissionForm() {
 
   if (!mounted) return null;
 
+  const countriesList = Country.getAllCountries();
+
   return (
     <div className="w-full max-w-2xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
-      {/* Logo strip — white background so dark navy/red logo colors are visible */}
+      {/* Logo strip */}
       <div className="bg-white px-8 pt-8 pb-5 flex justify-center border-b border-indigo-100">
         <img
           src="/api/logo"
@@ -104,7 +120,7 @@ export default function AdmissionForm() {
           className="h-24 md:h-32 w-auto object-contain"
         />
       </div>
-      {/* Indigo banner — title & subtitle */}
+      {/* Indigo banner */}
       <div className="bg-indigo-600 px-8 py-7 text-white text-center relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
           <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
@@ -131,6 +147,8 @@ export default function AdmissionForm() {
           </motion.div>
         ) : (
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            
+            {/* ROW 1: Name & Email */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <label htmlFor="name" className="text-sm font-medium text-gray-700 flex items-center gap-2">
@@ -160,18 +178,27 @@ export default function AdmissionForm() {
               </div>
             </div>
 
+            {/* ROW 2: Phone & Date */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label htmlFor="phone" className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
                   <Phone className="w-4 h-4 text-gray-400" /> Phone Number
                 </label>
-                <input
-                  id="phone"
-                  {...register("phone")}
-                  className={`w-full px-4 py-3 rounded-xl border ${errors.phone ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-indigo-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none`}
-                  placeholder="9876543210"
-                  maxLength={10}
-                />
+                <div className="flex gap-2">
+                  <input
+                    readOnly
+                    value={selectedPhoneCode || "+91"}
+                    className="w-20 px-3 py-3 rounded-xl border border-gray-200 bg-gray-100 text-gray-600 text-center font-medium select-none"
+                  />
+                  <div className="flex-1 relative">
+                    <input
+                      id="phone"
+                      {...register("phone")}
+                      className={`w-full px-4 py-3 rounded-xl border ${errors.phone ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-indigo-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none`}
+                      placeholder="9876543210"
+                    />
+                  </div>
+                </div>
                 {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
               </div>
 
@@ -189,6 +216,50 @@ export default function AdmissionForm() {
               </div>
             </div>
 
+            {/* ROW 3: Country & State */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label htmlFor="country" className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                  <Globe className="w-4 h-4 text-gray-400" /> Select Country
+                </label>
+                <select
+                  id="country"
+                  {...register("country")}
+                  className={`w-full px-4 py-3 rounded-xl border ${errors.country ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-indigo-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none appearance-none cursor-pointer`}
+                >
+                  <option value="">Choose a country...</option>
+                  {countriesList.map((country) => (
+                    <option key={country.isoCode} value={country.name}>
+                      {country.name}
+                    </option>
+                  ))}
+                </select>
+                {errors.country && <p className="text-red-500 text-xs mt-1">{errors.country.message}</p>}
+              </div>
+
+              {availableStates.length > 0 && (
+                <div className="space-y-2">
+                  <label htmlFor="state" className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                    <MapPin className="w-4 h-4 text-gray-400" /> Select State
+                  </label>
+                  <select
+                    id="state"
+                    {...register("state")}
+                    className={`w-full px-4 py-3 rounded-xl border ${errors.state ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-indigo-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none appearance-none cursor-pointer`}
+                  >
+                    <option value="">Choose a state...</option>
+                    {availableStates.map((state) => (
+                      <option key={state.isoCode} value={state.name}>
+                        {state.name}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.state && <p className="text-red-500 text-xs mt-1">{errors.state.message}</p>}
+                </div>
+              )}
+            </div>
+
+            {/* ROW 4: Course Selection */}
             <div className="space-y-2">
               <label htmlFor="course" className="text-sm font-medium text-gray-700 flex items-center gap-2">
                 <GraduationCap className="w-4 h-4 text-gray-400" /> Select Course
@@ -196,7 +267,7 @@ export default function AdmissionForm() {
               <select
                 id="course"
                 {...register("course")}
-                className={`w-full px-4 py-3 rounded-xl border ${errors.course ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-indigo-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none appearance-none`}
+                className={`w-full px-4 py-3 rounded-xl border ${errors.course ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-indigo-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none appearance-none cursor-pointer`}
               >
                 <option value="">Choose a course...</option>
                 {COURSE_GROUPS.map((group, idx) => (
@@ -212,55 +283,22 @@ export default function AdmissionForm() {
               {errors.course && <p className="text-red-500 text-xs mt-1">{errors.course.message}</p>}
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <label htmlFor="country" className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                  <Globe className="w-4 h-4 text-gray-400" /> Select Country
-                </label>
-                <select
-                  id="country"
-                  {...register("country")}
-                  onChange={(e) => {
-                    setValue("country", e.target.value, { shouldValidate: true });
-                    if (e.target.value === "International") {
-                      setValue("state", "");
-                      clearErrors("state");
-                    }
-                  }}
-                  className={`w-full px-4 py-3 rounded-xl border ${errors.country ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-indigo-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none appearance-none`}
-                >
-                  <option value="">Choose a country...</option>
-                  {COUNTRIES.map((country) => (
-                    <option key={country} value={country}>
-                      {country}
-                    </option>
-                  ))}
-                </select>
-                {errors.country && <p className="text-red-500 text-xs mt-1">{errors.country.message}</p>}
-              </div>
-
-              {selectedCountry !== "International" && (
-                <div className="space-y-2">
-                  <label htmlFor="state" className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-gray-400" /> Select State
-                  </label>
-                  <select
-                    id="state"
-                    {...register("state")}
-                    className={`w-full px-4 py-3 rounded-xl border ${errors.state ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-indigo-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none appearance-none`}
-                  >
-                    <option value="">Choose a state...</option>
-                    {STATES.map((state) => (
-                      <option key={state} value={state}>
-                        {state}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.state && <p className="text-red-500 text-xs mt-1">{errors.state.message}</p>}
-                </div>
-              )}
+            {/* ROW 5: Education Details */}
+            <div className="space-y-2">
+              <label htmlFor="educationDetails" className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                <Book className="w-4 h-4 text-gray-400" /> Previous Education Details
+              </label>
+              <textarea
+                id="educationDetails"
+                {...register("educationDetails")}
+                rows={3}
+                className={`w-full px-4 py-3 rounded-xl border ${errors.educationDetails ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-indigo-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none resize-none`}
+                placeholder="E.g. Completed High School (10+2) in 2025 with 85% aggregate..."
+              />
+              {errors.educationDetails && <p className="text-red-500 text-xs mt-1">{errors.educationDetails.message}</p>}
             </div>
 
+            {/* Form Actions */}
             <div className="pt-4 flex flex-col sm:flex-row gap-4">
               <button
                 type="button"
@@ -268,6 +306,7 @@ export default function AdmissionForm() {
                   reset();
                   setValue("country", "");
                   setValue("state", "");
+                  setAvailableStates([]);
                 }}
                 disabled={isSubmitting}
                 className="w-full sm:w-1/3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-4 px-8 rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"

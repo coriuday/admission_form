@@ -237,26 +237,25 @@ export default function AdmissionForm() {
                 {errors.country && <p className="text-red-500 text-xs mt-1">{errors.country.message}</p>}
               </div>
 
-              {availableStates.length > 0 && (
-                <div className="space-y-2">
-                  <label htmlFor="state" className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-gray-400" /> Select State
-                  </label>
-                  <select
-                    id="state"
-                    {...register("state")}
-                    className={`w-full px-4 py-3 rounded-xl border ${errors.state ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-indigo-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none appearance-none cursor-pointer`}
-                  >
-                    <option value="">Choose a state...</option>
-                    {availableStates.map((state) => (
-                      <option key={state.isoCode} value={state.name}>
-                        {state.name}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.state && <p className="text-red-500 text-xs mt-1">{errors.state.message}</p>}
-                </div>
-              )}
+              <div className="space-y-2">
+                <label htmlFor="state" className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-gray-400" /> Select State
+                </label>
+                <select
+                  id="state"
+                  {...register("state")}
+                  disabled={!selectedCountry || (selectedCountry && availableStates.length === 0)}
+                  className={`w-full px-4 py-3 rounded-xl border ${errors.state ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-indigo-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none appearance-none cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed`}
+                >
+                  <option value="">{selectedCountry && availableStates.length === 0 ? "No states available" : "Choose a state..."}</option>
+                  {availableStates.map((state) => (
+                    <option key={state.isoCode} value={state.name}>
+                      {state.name}
+                    </option>
+                  ))}
+                </select>
+                {errors.state && <p className="text-red-500 text-xs mt-1">{errors.state.message}</p>}
+              </div>
             </div>
 
             {/* ROW 4: Course Selection */}

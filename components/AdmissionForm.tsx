@@ -113,28 +113,28 @@ export default function AdmissionForm() {
   return (
     <div className="w-full max-w-2xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
       {/* Logo strip */}
-      <div className="bg-white px-8 pt-8 pb-5 flex justify-center border-b border-indigo-100">
+      <div className="bg-white px-8 pt-8 pb-5 flex justify-center border-b border-red-100">
         <img
           src="/api/logo"
           alt="Guru Nanak University, Hyderabad"
           className="h-24 md:h-32 w-auto object-contain"
         />
       </div>
-      {/* Indigo banner */}
-      <div className="bg-indigo-600 px-8 py-7 text-white text-center relative overflow-hidden">
+      {/* Red banner */}
+      <div className="bg-red-600 px-8 py-7 text-white text-center relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
           <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
             <path fill="#fff" d="M41.5,-63.5C53.7,-53.4,63.5,-40.5,69.5,-25.7C75.5,-10.9,77.7,5.8,73.4,20.8C69.1,35.8,58.3,49,44.9,58.5C31.5,68,15.8,73.8,0.1,73.6C-15.5,73.5,-31,67.5,-44.6,58.1C-58.2,48.7,-69.9,35.9,-75.4,21.1C-80.9,6.3,-80.2,-10.5,-73.4,-24.8C-66.6,-39.1,-53.7,-50.9,-40.1,-60.4C-26.5,-69.9,-13.2,-77.1,1.1,-78.6C15.4,-80.1,30.8,-75.9,41.5,-63.5Z" transform="translate(200 200)" />
           </svg>
         </div>
-        <GraduationCap className="w-8 h-8 mx-auto mb-3 text-indigo-200" />
+        <GraduationCap className="w-8 h-8 mx-auto mb-3 text-red-200" />
         <h2 className="text-3xl font-bold tracking-tight mb-2">Admission Enquiry</h2>
-        <p className="text-indigo-100 max-w-md mx-auto">Take the first step towards your future. Fill out the form below and our team will get in touch with you.</p>
+        <p className="text-red-100 max-w-md mx-auto">Take the first step towards your future. Fill out the form below and our team will get in touch with you.</p>
       </div>
 
       <div className="p-8">
         {isSubmitted ? (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             className="flex flex-col items-center justify-center py-12 text-center"
@@ -147,7 +147,7 @@ export default function AdmissionForm() {
           </motion.div>
         ) : (
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            
+
             {/* ROW 1: Name & Email */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
@@ -157,7 +157,7 @@ export default function AdmissionForm() {
                 <input
                   id="name"
                   {...register("name")}
-                  className={`w-full px-4 py-3 rounded-xl border ${errors.name ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-indigo-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none`}
+                  className={`w-full px-4 py-3 rounded-xl border ${errors.name ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-red-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none`}
                   placeholder="John Doe"
                 />
                 {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
@@ -171,7 +171,7 @@ export default function AdmissionForm() {
                   id="email"
                   type="email"
                   {...register("email")}
-                  className={`w-full px-4 py-3 rounded-xl border ${errors.email ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-indigo-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none`}
+                  className={`w-full px-4 py-3 rounded-xl border ${errors.email ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-red-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none`}
                   placeholder="john@example.com"
                 />
                 {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
@@ -194,7 +194,7 @@ export default function AdmissionForm() {
                     <input
                       id="phone"
                       {...register("phone")}
-                      className={`w-full px-4 py-3 rounded-xl border ${errors.phone ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-indigo-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none`}
+                      className={`w-full px-4 py-3 rounded-xl border ${errors.phone ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-red-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none`}
                       placeholder="9876543210"
                     />
                   </div>
@@ -210,7 +210,7 @@ export default function AdmissionForm() {
                   id="date"
                   type="date"
                   {...register("date")}
-                  className={`w-full px-4 py-3 rounded-xl border ${errors.date ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-indigo-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none`}
+                  className={`w-full px-4 py-3 rounded-xl border ${errors.date ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-red-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none`}
                 />
                 {errors.date && <p className="text-red-500 text-xs mt-1">{errors.date.message}</p>}
               </div>
@@ -225,7 +225,7 @@ export default function AdmissionForm() {
                 <select
                   id="country"
                   {...register("country")}
-                  className={`w-full px-4 py-3 rounded-xl border ${errors.country ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-indigo-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none appearance-none cursor-pointer`}
+                  className={`w-full px-4 py-3 rounded-xl border ${errors.country ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-red-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none appearance-none cursor-pointer`}
                 >
                   <option value="">Choose a country...</option>
                   {countriesList.map((country) => (
@@ -245,7 +245,7 @@ export default function AdmissionForm() {
                   id="state"
                   {...register("state")}
                   disabled={!selectedCountry || availableStates.length === 0}
-                  className={`w-full px-4 py-3 rounded-xl border ${errors.state ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-indigo-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none appearance-none cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed`}
+                  className={`w-full px-4 py-3 rounded-xl border ${errors.state ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-red-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none appearance-none cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed`}
                 >
                   <option value="">{selectedCountry && availableStates.length === 0 ? "No states available" : "Choose a state..."}</option>
                   {availableStates.map((state) => (
@@ -266,7 +266,7 @@ export default function AdmissionForm() {
               <select
                 id="course"
                 {...register("course")}
-                className={`w-full px-4 py-3 rounded-xl border ${errors.course ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-indigo-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none appearance-none cursor-pointer`}
+                className={`w-full px-4 py-3 rounded-xl border ${errors.course ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-red-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none appearance-none cursor-pointer`}
               >
                 <option value="">Choose a course...</option>
                 {COURSE_GROUPS.map((group, idx) => (
@@ -291,7 +291,7 @@ export default function AdmissionForm() {
                 id="educationDetails"
                 {...register("educationDetails")}
                 rows={3}
-                className={`w-full px-4 py-3 rounded-xl border ${errors.educationDetails ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-indigo-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none resize-none`}
+                className={`w-full px-4 py-3 rounded-xl border ${errors.educationDetails ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-red-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none resize-none`}
                 placeholder="E.g. Completed High School (10+2) in 2025 with 85% aggregate..."
               />
               {errors.educationDetails && <p className="text-red-500 text-xs mt-1">{errors.educationDetails.message}</p>}
@@ -315,7 +315,7 @@ export default function AdmissionForm() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full sm:w-2/3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed shadow-lg shadow-indigo-200 disabled:hover:translate-y-0"
+                className="w-full sm:w-2/3 bg-red-600 hover:bg-red-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed shadow-lg shadow-red-200 disabled:hover:translate-y-0"
               >
                 {isSubmitting ? (
                   <span className="flex items-center gap-2">

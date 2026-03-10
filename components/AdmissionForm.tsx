@@ -315,7 +315,7 @@ export default function AdmissionForm() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full sm:w-2/3 bg-red-600 hover:bg-red-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed shadow-lg shadow-red-200 disabled:hover:translate-y-0"
+                className="w-full sm:w-2/3 bg-blue-600 hover:bg-green-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed shadow-lg shadow-green-200 disabled:hover:translate-y-0"
               >
                 {isSubmitting ? (
                   <span className="flex items-center gap-2">

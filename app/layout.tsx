@@ -1,4 +1,4 @@
-import type {Metadata} from 'next';
+import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 
@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   title: 'Admission Enquiry | Guru Nanak University, Hyderabad',
   description: 'Apply for admission to Guru Nanak University, Hyderabad. Fill out the enquiry form for B.Tech, MBA, B.Sc, Law, and many more programs.',
   manifest: '/site.webmanifest',
+  icons: {
+    icon: '/icon.png',
+    shortcut: '/favicon.ico',
+    apple: '/apple-icon.png',
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
@@ -19,7 +24,7 @@ export const viewport = {
   themeColor: '#4f46e5',
 };
 
-export default function RootLayout({children}: {children: React.ReactNode}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={inter.variable}>
       <body className="font-sans antialiased text-slate-900 bg-slate-50" suppressHydrationWarning>

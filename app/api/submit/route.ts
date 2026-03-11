@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { google } from "googleapis";
 
-// ─── ENV VARS (add these to .env.local when you have the credentials) ─────────
-// GOOGLE_SHEET_ID        → The ID from your Google Sheet URL
-// GOOGLE_CLIENT_EMAIL    → Service account email from the JSON key file
-// GOOGLE_PRIVATE_KEY     → Private key from the JSON key file (keep newlines)
+// ─── ENV VARS ────────────────────────────────────────────────────────────────
+// GOOGLE_APPS_SCRIPT_URL → The Web App URL from your Google Apps Script deployment
 // ─────────────────────────────────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
@@ -21,53 +18,55 @@ export async function POST(req: NextRequest) {
     }
 
     const fullPhone = `${phoneCode || ""} ${phone}`.trim();
-
-    const sheetId = process.env.GOOGLE_SHEET_ID;
-    const clientEmail = process.env.GOOGLE_CLIENT_EMAIL;
-    const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n");
+    const scriptUrl = process.env.GOOGLE_APPS_SCRIPT_URL;
 
     // If credentials are not set yet, fall back to a local-only response
-    if (!sheetId || !clientEmail || !privateKey) {
+    if (!scriptUrl) {
       console.warn(
-        "[submit] Google Sheets credentials not configured. " +
-          "Add GOOGLE_SHEET_ID, GOOGLE_CLIENT_EMAIL, GOOGLE_PRIVATE_KEY to .env.local"
+        "[submit] Google Apps Script URL not configured. " +
+        "Add GOOGLE_APPS_SCRIPT_URL to .env.local"
       );
       return NextResponse.json({
         success: true,
-        message: "Submission received (Sheets not configured yet – data logged server-side).",
+        message: "Submission received (Apps Script not configured yet – data logged server-side).",
         data: { name, email, phone: fullPhone, course, country, state, educationDetails, date },
       });
     }
 
-    // Authenticate with Google
-    const auth = new google.auth.GoogleAuth({
-      credentials: {
-        client_email: clientEmail,
-        private_key: privateKey,
-      },
-      scopes: ["https://www.googleapis.com/auth/spreadsheets"],
-    });
-
-    const sheets = google.sheets({ version: "v4", auth });
-
     const submittedAt = new Date().toISOString();
 
-    // Append a new row to the first sheet (Sheet1)
-    // Column order: Submitted At | Name | Email | Phone | Course | Country | State | Preferred Date | Education Details
-    await sheets.spreadsheets.values.append({
-      spreadsheetId: sheetId,
-      range: "Sheet1!A:I",
-      valueInputOption: "USER_ENTERED",
-      requestBody: {
-        values: [
-          [submittedAt, name, email, fullPhone, course, country, state ?? "", date, educationDetails ?? ""],
-        ],
+    // Prepare data to send to Google Apps Script.
+    // Using URLSearchParams (x-www-form-urlencoded) is the safest approach
+    // because most Apps Scripts use `e.parameter` to access the variables.
+    const formData = new URLSearchParams();
+    formData.append("submittedAt", submittedAt);
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("phone", fullPhone);
+    formData.append("course", course);
+    formData.append("country", country);
+    formData.append("state", state ?? "");
+    formData.append("date", date);
+    formData.append("educationDetails", educationDetails ?? "");
+
+    const response = await fetch(scriptUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
       },
+      body: formData.toString(),
     });
+
+    // Often Apps Script will return an HTML page or simple JSON. Just checking if it's OK is usually enough.
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("[submit] Error from Apps Script:", response.status, response.statusText, errorText);
+      throw new Error(`Apps Script responded with status ${response.status}`);
+    }
 
     return NextResponse.json({ success: true, message: "Enquiry submitted successfully!" });
   } catch (error) {
-    console.error("[submit] Error writing to Google Sheets:", error);
+    console.error("[submit] Error writing to Google Sheets via Apps Script:", error);
     return NextResponse.json(
       { success: false, error: "Failed to submit. Please try again later." },
       { status: 500 }

@@ -7,10 +7,10 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, email, phoneCode, phone, course, country, state, educationDetails, date } = body;
+    const { name, email, phoneCode, phone, course, country, state, educationDetails } = body;
 
     // Validate required fields
-    if (!name || !email || !phone || !course || !country || !date) {
+    if (!name || !email || !phone || !course || !country) {
       return NextResponse.json(
         { success: false, error: "Missing required fields." },
         { status: 400 }
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({
         success: true,
         message: "Submission received (Apps Script not configured yet – data logged server-side).",
-        data: { name, email, phone: fullPhone, course, country, state, educationDetails, date },
+        data: { name, email, phone: fullPhone, course, country, state, educationDetails },
       });
     }
 
@@ -47,7 +47,6 @@ export async function POST(req: NextRequest) {
     formData.append("course", course);
     formData.append("country", country);
     formData.append("state", state ?? "");
-    formData.append("date", date);
     formData.append("educationDetails", educationDetails ?? "");
 
     const response = await fetch(scriptUrl, {

@@ -18,12 +18,6 @@ const formSchema = z.object({
   country: z.string().min(1, "Please select a country."),
   state: z.string().optional(),
   educationDetails: z.string().min(1, "Please provide your previous education details."),
-  date: z.string().min(1, "Please select a date.").refine((val) => {
-    const selectedDate = new Date(val);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    return selectedDate >= today;
-  }, "Date cannot be in the past."),
 }).superRefine((data, ctx) => {
   if (data.country && !data.state && Country.getAllCountries().find(c => c.name === data.country)?.isoCode && State.getStatesOfCountry(Country.getAllCountries().find(c => c.name === data.country)?.isoCode || "").length > 0) {
     ctx.addIssue({
@@ -53,7 +47,6 @@ export default function AdmissionForm() {
     resolver: zodResolver(formSchema),
     mode: "onTouched",
     defaultValues: {
-      date: new Date().toISOString().split("T")[0],
       phoneCode: "+91", // Default to India
     },
   });
@@ -178,8 +171,8 @@ export default function AdmissionForm() {
               </div>
             </div>
 
-            {/* ROW 2: Phone & Date */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* ROW 2: Phone */}
+            <div className="grid grid-cols-1 gap-6">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
                   <Phone className="w-4 h-4 text-gray-400" /> Phone Number
@@ -200,19 +193,6 @@ export default function AdmissionForm() {
                   </div>
                 </div>
                 {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
-              </div>
-
-              <div className="space-y-2">
-                <label htmlFor="date" className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-gray-400" /> Preferred Date
-                </label>
-                <input
-                  id="date"
-                  type="date"
-                  {...register("date")}
-                  className={`w-full px-4 py-3 rounded-xl border ${errors.date ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-red-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none`}
-                />
-                {errors.date && <p className="text-red-500 text-xs mt-1">{errors.date.message}</p>}
               </div>
             </div>
 

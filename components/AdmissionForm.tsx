@@ -17,7 +17,7 @@ const formSchema = z.object({
   course: z.string().min(1, "Please select a course."),
   country: z.string().min(1, "Please select a country."),
   state: z.string().optional(),
-  educationDetails: z.string().optional(),
+  educationDetails: z.string().min(1, "Please provide your previous education details."),
   date: z.string().min(1, "Please select a date.").refine((val) => {
     const selectedDate = new Date(val);
     const today = new Date();
@@ -186,9 +186,9 @@ export default function AdmissionForm() {
                 </label>
                 <div className="flex gap-2">
                   <input
-                    readOnly
-                    value={selectedPhoneCode || "+91"}
-                    className="w-20 px-3 py-3 rounded-xl border border-gray-200 bg-gray-100 text-gray-600 text-center font-medium select-none"
+                    {...register("phoneCode")}
+                    className="w-20 px-2 py-3 rounded-xl border border-gray-200 focus:border-red-500 focus:ring-2 focus:ring-red-500 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white text-gray-800 text-center font-medium outline-none"
+                    placeholder="+91"
                   />
                   <div className="flex-1 relative">
                     <input

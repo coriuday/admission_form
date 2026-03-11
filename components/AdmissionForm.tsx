@@ -171,8 +171,8 @@ export default function AdmissionForm() {
               </div>
             </div>
 
-            {/* ROW 2: Phone */}
-            <div className="grid grid-cols-1 gap-6">
+            {/* ROW 2: Phone & Course */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
                   <Phone className="w-4 h-4 text-gray-400" /> Phone Number
@@ -193,6 +193,29 @@ export default function AdmissionForm() {
                   </div>
                 </div>
                 {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="course" className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                  <GraduationCap className="w-4 h-4 text-gray-400" /> Select Course
+                </label>
+                <select
+                  id="course"
+                  {...register("course")}
+                  className={`w-full px-4 py-3 rounded-xl border ${errors.course ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-red-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none appearance-none cursor-pointer`}
+                >
+                  <option value="">Choose a course...</option>
+                  {COURSE_GROUPS.map((group, idx) => (
+                    <optgroup key={idx} label={group.label}>
+                      {group.options.map((opt) => (
+                        <option key={opt.value} value={opt.value}>
+                          {opt.label}
+                        </option>
+                      ))}
+                    </optgroup>
+                  ))}
+                </select>
+                {errors.course && <p className="text-red-500 text-xs mt-1">{errors.course.message}</p>}
               </div>
             </div>
 
@@ -238,29 +261,6 @@ export default function AdmissionForm() {
               </div>
             </div>
 
-            {/* ROW 4: Course Selection */}
-            <div className="space-y-2">
-              <label htmlFor="course" className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                <GraduationCap className="w-4 h-4 text-gray-400" /> Select Course
-              </label>
-              <select
-                id="course"
-                {...register("course")}
-                className={`w-full px-4 py-3 rounded-xl border ${errors.course ? 'border-red-300 focus:ring-red-500' : 'border-gray-200 focus:ring-red-500'} focus:border-transparent focus:ring-2 transition-all duration-300 focus:-translate-y-1 focus:shadow-lg bg-gray-50 focus:bg-white outline-none appearance-none cursor-pointer`}
-              >
-                <option value="">Choose a course...</option>
-                {COURSE_GROUPS.map((group, idx) => (
-                  <optgroup key={idx} label={group.label}>
-                    {group.options.map((opt) => (
-                      <option key={opt.value} value={opt.value}>
-                        {opt.label}
-                      </option>
-                    ))}
-                  </optgroup>
-                ))}
-              </select>
-              {errors.course && <p className="text-red-500 text-xs mt-1">{errors.course.message}</p>}
-            </div>
 
             {/* ROW 5: Education Details */}
             <div className="space-y-2">

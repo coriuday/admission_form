@@ -17,7 +17,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const fullPhone = `${phoneCode || ""} ${phone}`.trim();
+    // Prepend a single quote so Google Sheets treats it as text instead of a formula (= +91)
+    const fullPhone = `'${phoneCode || ""} ${phone}`.trim();
     const scriptUrl = process.env.GOOGLE_APPS_SCRIPT_URL;
 
     // If credentials are not set yet, fall back to a local-only response

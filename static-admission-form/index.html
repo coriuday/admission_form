@@ -3,9 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Official Admission Enquiry Form for GNU Hyderabad. Take the first step towards your future.">
     <title>Admission Enquiry | GNU Hyderabad</title>
-    <link rel="stylesheet" href="style.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Styling -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
@@ -18,11 +27,12 @@
         <div class="form-card">
             <!-- Logo Strip -->
             <div class="logo-strip">
-                <img src="logo.png" alt="GNU Hyderabad Logo" class="logo">
+                <img src="logo.png" alt="Guru Nanak University, Hyderabad" class="logo">
             </div>
 
             <!-- Banner Header -->
             <header class="form-header">
+                <div class="header-overlay"></div>
                 <div class="header-content">
                     <i data-lucide="graduation-cap" class="header-icon"></i>
                     <h1>Admission Enquiry</h1>
@@ -32,26 +42,28 @@
 
             <!-- Form -->
             <div class="form-body">
-                <form id="admissionForm">
-                    <div id="successMessage" class="hidden success-container">
+                <form id="admissionForm" novalidate>
+                    <!-- Success Message -->
+                    <div id="successMessage" class="success-container hidden">
                         <div class="success-icon-wrapper">
-                            <i data-lucide="check-circle" class="success-icon"></i>
+                            <i data-lucide="check-circle-2" class="success-icon"></i>
                         </div>
                         <h2>Enquiry Submitted!</h2>
-                        <p>Thank you for your interest. We will contact you shortly.</p>
+                        <p>Thank you for your interest. We have received your details and will contact you shortly.</p>
                     </div>
 
+                    <!-- Form Fields -->
                     <div id="formFields" class="form-fields">
                         <div class="grid-row">
                             <div class="field-group">
                                 <label for="name"><i data-lucide="user"></i> Full Name</label>
-                                <input type="text" id="name" name="name" placeholder="John Doe" required>
-                                <span class="error" id="nameError"></span>
+                                <input type="text" id="name" name="name" placeholder="John Doe" autocomplete="name">
+                                <span class="error-msg" id="nameError"></span>
                             </div>
                             <div class="field-group">
                                 <label for="email"><i data-lucide="mail"></i> Email Address</label>
-                                <input type="email" id="email" name="email" placeholder="john@example.com" required>
-                                <span class="error" id="emailError"></span>
+                                <input type="email" id="email" name="email" placeholder="john@example.com" autocomplete="email">
+                                <span class="error-msg" id="emailError"></span>
                             </div>
                         </div>
 
@@ -59,44 +71,47 @@
                             <div class="field-group">
                                 <label><i data-lucide="phone"></i> Phone Number</label>
                                 <div class="phone-input-group">
-                                    <input type="text" id="phoneCode" name="phoneCode" value="+91" class="phone-code">
-                                    <input type="tel" id="phone" name="phone" placeholder="9876543210" required>
+                                    <input type="text" id="phoneCode" name="phoneCode" value="+91" class="phone-code" placeholder="+91">
+                                    <input type="tel" id="phone" name="phone" placeholder="9876543210" autocomplete="tel">
                                 </div>
-                                <span class="error" id="phoneError"></span>
+                                <span class="error-msg" id="phoneError"></span>
                             </div>
                             <div class="field-group">
                                 <label for="course"><i data-lucide="graduation-cap"></i> Select Course</label>
-                                <select id="course" name="course" required>
-                                    <option value="">Choose a course...</option>
-                                    <!-- Populated by script.js -->
-                                </select>
-                                <span class="error" id="courseError"></span>
+                                <div class="select-wrapper">
+                                    <select id="course" name="course">
+                                        <option value="">Choose a course...</option>
+                                    </select>
+                                </div>
+                                <span class="error-msg" id="courseError"></span>
                             </div>
                         </div>
 
                         <div class="grid-row">
                             <div class="field-group">
                                 <label for="country"><i data-lucide="globe"></i> Select Country</label>
-                                <select id="country" name="country" required>
-                                    <option value="">Choose a country...</option>
-                                    <!-- Populated by script.js -->
-                                </select>
-                                <span class="error" id="countryError"></span>
+                                <div class="select-wrapper">
+                                    <select id="country" name="country">
+                                        <option value="">Choose a country...</option>
+                                    </select>
+                                </div>
+                                <span class="error-msg" id="countryError"></span>
                             </div>
                             <div class="field-group">
                                 <label for="state"><i data-lucide="map-pin"></i> Select State</label>
-                                <select id="state" name="state" disabled>
-                                    <option value="">Choose a state...</option>
-                                    <!-- Populated by script.js -->
-                                </select>
-                                <span class="error" id="stateError"></span>
+                                <div class="select-wrapper">
+                                    <select id="state" name="state" disabled>
+                                        <option value="">Choose a state...</option>
+                                    </select>
+                                </div>
+                                <span class="error-msg" id="stateError"></span>
                             </div>
                         </div>
 
                         <div class="field-group">
                             <label for="educationDetails"><i data-lucide="book"></i> Previous Education Details</label>
-                            <textarea id="educationDetails" name="educationDetails" rows="3" placeholder="E.g. Completed High School (10+2) in 2025 with 85% aggregate..." required></textarea>
-                            <span class="error" id="educationDetailsError"></span>
+                            <textarea id="educationDetails" name="educationDetails" rows="3" placeholder="E.g. Completed High School (10+2) in 2025 with 85% aggregate..."></textarea>
+                            <span class="error-msg" id="educationDetailsError"></span>
                         </div>
 
                         <div class="form-actions">
@@ -104,8 +119,8 @@
                                 <i data-lucide="rotate-ccw"></i> Clear
                             </button>
                             <button type="submit" id="submitBtn" class="btn-submit">
-                                <span>Submit Enquiry</span>
-                                <i data-lucide="chevron-right"></i>
+                                <span id="btnText">Submit Enquiry</span>
+                                <i data-lucide="chevron-right" id="btnIcon"></i>
                             </button>
                         </div>
                     </div>
@@ -114,6 +129,10 @@
         </div>
     </main>
 
+    <!-- Global Country/State Data Source -->
+    <!-- Local Country/State Data (Self-contained for static usage) -->
+    <script src="countries-data.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
+

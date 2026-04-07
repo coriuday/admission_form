@@ -1,249 +1,4 @@
-export const COURSE_GROUPS = [
-  {
-    label: "University Institute of Engineering & Technology",
-    options: [
-      { value: "B.Tech Computer Science and Engineering", label: "B.Tech CSE - Bachelor of Technology in Computer Science and Engineering" },
-      { value: "B.Tech IT", label: "B.Tech IT - Bachelor of Technology in Information Technology" },
-      { value: "B.Tech ECE", label: "B.Tech ECE - Bachelor of Technology in Electronics and Communication Engineering" },
-      { value: "M.Tech CSE", label: "M.Tech CSE - Master of Technology in Computer Science and Engineering" },
-      { value: "M.Tech ECE", label: "M.Tech ECE - Master of Technology in Electronics and Communication Engineering" },
-    ],
-  },
-  {
-    label: "University Institute of Emerging Technologies",
-    options: [
-      { value: "B.Tech CSE - AIML", label: "B.Tech CSE - AIML - Bachelor of Technology in Computer Science and Engineering (AI & ML)" },
-      { value: "B.Tech CSE - DS", label: "B.Tech CSE - DS - Bachelor of Technology in Computer Science and Engineering (Data Science)" },
-      { value: "B.Tech CSE - CS", label: "B.Tech CSE - CS - Bachelor of Technology in Computer Science and Engineering (Cyber Security)" },
-      { value: "B.Tech CSE - SAP", label: "B.Tech CSE - SAP - Bachelor of Technology in Computer Science and Engineering (SAP)" },
-      { value: "B.Tech AIML - IBM", label: "B.Tech AIML - IBM - Bachelor of Technology in IBM-Powered AI & ML" },
-      { value: "B.Tech Biotechnology", label: "B.Tech Biotechnology - Bachelor of Technology in Biotechnology" },
-      { value: "M.Tech Biotechnology", label: "M.Tech Biotechnology - Master of Technology in Biotechnology" },
-    ],
-  },
-  {
-    label: "University Institute of Computer Science & Applications",
-    options: [
-      { value: "B.Sc Digital Forensic", label: "B.Sc Digital Forensic - Bachelor of Science in Digital Forensics" },
-      { value: "BCA - General", label: "BCA - General - Bachelor of Computer Applications (General)" },
-      { value: "BCA in AI / CS / DS", label: "BCA in AI / CS / DS - Bachelor of Computer Applications in AI / CS / DS" },
-      { value: "MCA - General", label: "MCA - General - Master of Computer Applications (General)" },
-      { value: "MCA in AI / CS / DS", label: "MCA in AI / CS / DS - Master of Computer Applications in AI / CS / DS" },
-    ],
-  },
-  {
-    label: "University Institute of Management & Commerce",
-    options: [
-      { value: "BBA - General", label: "BBA - General - Bachelor of Business Administration (General)" },
-      { value: "BBA - Business Analytics", label: "BBA - Business Analytics - Bachelor of Business Administration in Business Analytics" },
-      { value: "MBA - HR / Finance / Marketing", label: "MBA - HR / Finance / Marketing - Master of Business Administration (HR / Finance / Marketing)" },
-      { value: "BBA - Artificial Intelligence", label: "BBA - Artificial Intelligence - Bachelor of Business Administration in AI / DS" },
-      { value: "MBA - BA / FinTech / NSE / ED", label: "MBA - BA / FinTech / NSE / ED - Master of Business Administration in BA / FinTech / NSE / ED" },
-    ],
-  },
-  {
-    label: "University Institute of Allied & Healthcare Sciences",
-    options: [
-      { value: "BPT", label: "BPT - Bachelor of Physiotherapy" },
-      { value: "B.AOTT", label: "B.AOTT - Bachelor of Anesthesia & Operation Theatre Technology" },
-      { value: "B.MRIT", label: "B.MRIT - Bachelor of Medical Radiology & Imaging Technology" },
-      { value: "B.EMT", label: "B.EMT - Bachelor of Emergency Medical Technologist (Paramedic)" },
-      { value: "B.MLS", label: "B.MLS - Bachelor of Medical Laboratory Sciences" },
-      { value: "B.Sc CVT", label: "B.Sc CVT - Bachelor of Science in Cardiovascular Technology" },
-      { value: "MPT", label: "MPT - Master of Physiotherapy" },
-    ],
-  },
-  {
-    label: "University Institute of Agriculture",
-    options: [
-      { value: "B.Sc (Hons) Agriculture", label: "B.Sc (Hons) Agriculture - Bachelor of Science (Honours) in Agriculture" },
-      { value: "B.Tech Agricultural Engineering", label: "B.Tech Agricultural Engineering - Bachelor of Technology in Agricultural Engineering" },
-    ],
-  },
-  {
-    label: "University Institute of Law",
-    options: [
-      { value: "B.A. LLB (Hons)", label: "B.A. LLB (Hons) - 5 Years Integrated" },
-      { value: "LLB (Hons)", label: "LLB (Hons) - 3 Years" },
-      { value: "BBA LLB Integrated", label: "BBA LLB Integrated - Bachelor of Business Administration + LLB" },
-    ],
-  },
-  {
-    label: "University Institute of Pharmaceutical Sciences",
-    options: [
-      { value: "B.Pharmacy", label: "B.Pharmacy - Bachelor of Pharmacy" },
-    ],
-  },
-];
-
-export const STATES = [
-  "Andhra Pradesh",
-  "Arunachal Pradesh",
-  "Assam",
-  "Bihar",
-  "Chhattisgarh",
-  "Goa",
-  "Gujarat",
-  "Haryana",
-  "Himachal Pradesh",
-  "Jammu and Kashmir",
-  "Jharkhand",
-  "Karnataka",
-  "Kerala",
-  "Madhya Pradesh",
-  "Maharashtra",
-  "Manipur",
-  "Meghalaya",
-  "Mizoram",
-  "Nagaland",
-  "Odisha",
-  "Punjab",
-  "Rajasthan",
-  "Sikkim",
-  "Tamil Nadu",
-  "Telangana",
-  "Tripura",
-  "Uttar Pradesh",
-  "Uttarakhand",
-  "West Bengal",
-];
-
-export const COUNTRIES = [
-  "India",
-  // South Asia / SAARC
-  "Afghanistan",
-  "Bangladesh",
-  "Bhutan",
-  "Maldives",
-  "Nepal",
-  "Pakistan",
-  "Sri Lanka",
-  // South-East Asia
-  "Brunei",
-  "Cambodia",
-  "Indonesia",
-  "Laos",
-  "Malaysia",
-  "Myanmar",
-  "Philippines",
-  "Singapore",
-  "Thailand",
-  "Timor-Leste",
-  "Vietnam",
-  // East Asia
-  "China",
-  "Hong Kong",
-  "Japan",
-  "Macau",
-  "Mongolia",
-  "South Korea",
-  "Taiwan",
-  // Central Asia
-  "Kazakhstan",
-  "Kyrgyzstan",
-  "Tajikistan",
-  "Turkmenistan",
-  "Uzbekistan",
-  // Middle East
-  "Bahrain",
-  "Iran",
-  "Iraq",
-  "Israel",
-  "Jordan",
-  "Kuwait",
-  "Lebanon",
-  "Oman",
-  "Palestine",
-  "Qatar",
-  "Saudi Arabia",
-  "Syria",
-  "United Arab Emirates",
-  "Yemen",
-  // Africa
-  "Algeria",
-  "Angola",
-  "Botswana",
-  "Cameroon",
-  "Djibouti",
-  "Egypt",
-  "Ethiopia",
-  "Ghana",
-  "Kenya",
-  "Libya",
-  "Madagascar",
-  "Malawi",
-  "Mauritius",
-  "Morocco",
-  "Mozambique",
-  "Namibia",
-  "Nigeria",
-  "Rwanda",
-  "Senegal",
-  "South Africa",
-  "Sudan",
-  "Tanzania",
-  "Tunisia",
-  "Uganda",
-  "Zambia",
-  "Zimbabwe",
-  // Europe
-  "Austria",
-  "Belgium",
-  "Czech Republic",
-  "Denmark",
-  "Finland",
-  "France",
-  "Germany",
-  "Greece",
-  "Hungary",
-  "Ireland",
-  "Italy",
-  "Netherlands",
-  "Norway",
-  "Poland",
-  "Portugal",
-  "Romania",
-  "Russia",
-  "Spain",
-  "Sweden",
-  "Switzerland",
-  "Ukraine",
-  "United Kingdom",
-  // North America
-  "Canada",
-  "Mexico",
-  "United States",
-  // Caribbean & Central America
-  "Costa Rica",
-  "Cuba",
-  "Guatemala",
-  "Jamaica",
-  "Panama",
-  "Trinidad and Tobago",
-  // South America
-  "Argentina",
-  "Bolivia",
-  "Brazil",
-  "Chile",
-  "Colombia",
-  "Ecuador",
-  "Guyana",
-  "Paraguay",
-  "Peru",
-  "Suriname",
-  "Uruguay",
-  "Venezuela",
-  // Oceania
-  "Australia",
-  "Fiji",
-  "New Zealand",
-  "Papua New Guinea",
-  // Other
-  "International",
-];
-
-
-export const COUNTRIES_DATA = [
+const COUNTRIES_DATA = [
   {
     "name": "Afghanistan",
     "code": "AF",
@@ -1496,7 +1251,7 @@ export const COUNTRIES_DATA = [
   }
 ];
 
-export const STATES_DATA = {
+const STATES_DATA = {
   "AF": [
     "Badakhshan",
     "Badghis",
@@ -6907,4 +6662,14 @@ export const STATES_DATA = {
   ],
   "CW": [],
   "SX": []
+};
+
+window.Country = {
+    getAllCountries: () => COUNTRIES_DATA
+};
+window.State = {
+    getStatesOfCountry: (code) => {
+        const states = STATES_DATA[code] || [];
+        return states.map(name => ({ name, isoCode: name }));
+    }
 };
